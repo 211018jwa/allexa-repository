@@ -1,0 +1,24 @@
+Maven
+- a dependency manager and built in tool utilized for java projects
+
+Dependency Manager
+- a tool that helps to manage different external libraries that 
+    other developers have created
+
+Build Tool
+- a tool that helps us build a project
+- when we are finished developing a project, we need to package/build 
+    into something that is actualy shippable
+
+Maven Project Coordinates
+- specify "project coordinates"
+  - group-id: who developed the project
+  - artifact-id: project name
+  - version: specific release of project
+  - packaging: what you want to package the project as
+    - JAR: Java archive
+    - WAR: Web archive
+
+POM - Project Object Model
+- Maven Project configuration and dependencies are provided inside 
+    of a special file named 

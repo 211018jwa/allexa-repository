@@ -1,0 +1,37 @@
+Waterfall
+
+https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1148/https://techkalture.com/wp-content/uploads/2021/09/waterfall.png
+
+- Winston Royce was of the opinion that sofware development should have 
+    an allowance for repetition of phases
+- This is the opposite of waterfall
+- he preferred iterative models
+
+Waterfall phases
+- 7 phases
+- progress in the down direction
+- no going back once progress is made
+
+pros and cons
+- pros
+  - driven model
+  - eaisier for project maager to deal with
+    - project manager ensures that a project is completed on time and on 
+        budget
+    - eisier control and scheduling phases
+  - less ambiguity
+- cons
+  - testing not performed until implimitation
+  - problems not proactively detected and resolved ahead of time
+  - customers often have changing opinions and demands
+  - competitive environments can change priorities
+  - high risk" no working sofware until late in the cycle
+  - comlex projects can be difficult to handle
+
+Where waterfall is suitable?
+- waterfall is suitable if
+  - clear,fixed, and well documented requirements
+  - Technology is well understood
+  - project is small or short in duration
+  - proper resources are available to support development
+  - the project requires you to deliver everything at once

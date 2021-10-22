@@ -1,0 +1,132 @@
+Scrum
+
+Background
+-agile framework
+-agile is abstract
+- scrum is concrete implementation of agile
+
+https://scrumguides.org/scrum-guide.html
+
+-light weight framework
+-3 high level ideas
+  - Artifacts
+  - Roles
+  - Ceremonies
+
+Sprint
+- usable increments
+- fixed length 1-4 weeks
+- product backlog
+- a potentialy shippable increment
+
+Scrum Artifacts
+- product backlog
+  - list of everything currently part of the product vision
+  - always changing
+  - product owner is incharge of backlog
+     - product manager
+- sprint backlog
+  - List of items to achive 
+  - only the development team can add to it once it is set
+  - development team need to negotiate the removal of items with the owner
+- usable product increment
+  - the actual product at the end of the sprint
+  - "potentially releasable"
+  - meet the team's "definition of done"
+ 
+User story
+- contained in product backlog
+- features to be developed
+- perspective of the user
+
+Benefits
+- keeps the focus on the user
+- stories enable collaboration
+- stories drive creative solution
+- stories create momentum
+
+User story format
+- you start with
+  - "As a"
+  - "I want to" 
+  - "So that I"
+
+Consideration
+- acceptance criteris
+- defenition of done
+- story pointing
+- burndown charts
+
+Acceptance criteria
+- helps define when the functionality of the user story has been implemented
+- criteria is what we percieve as acceptable
+- given/when/then
+
+Definition of Done
+- it is defined by scrum team
+- describe what need to be fulfilled for a story to be considered complete
+
+
+- internall products(tools company is using)
+- business to consumer (market research)
+- business to business(user stories are based on what consumers want)
+
+Story pointing
+- estimating amount of effort needed to complete a particular user story
+- rather than concrete estimate, we use story points
+
+Story points could be
+- fibonacci numbers
+- T-shirt sizes
+- etc.
+
+Burndown chart
+- used to track progress
+- user stories are added to backlog
+- number of points can be visualized
+- should idealy be at 0 once sprint is done
+
+Scrum Roles
+- scrum master
+  - facilitates scrum practices
+  - clarifies questions
+  - assists removal of blockers
+  - facilitates scrum ceremonies
+- Product Owner
+- development team
+  - software engineers + developers
+
+Scrum team
+- scrum roles are different people involved in the scrum team
+-one scrum master
+- one product manager
+- many developers/testers
+- 10 or fewer people
+- no hierchy
+-
+
+Scrum ceremonies
+- official meetings
+- transparancy required for adapting and improving
+- share understading and reduce ambuguity
+
+Ceremonies
+- sprint planing meeting
+- Daily standup meeting
+  - once a day
+  - back log is inspected
+  - 15 min
+  - each team member answers 
+    - what did you do yesterday
+    - what will you do today
+    - are there any blockers?
+-sprint review meeting
+  - happens at the end of a sprint
+  - inspect outcome
+  - determine future adaptions
+  - present results to stakeholders
+  - progree towards product goal is discussed
+- sprint retrospective
+  - after sprint review meeting
+  - how to improve for next sprint
+  - identify useful changes to improve

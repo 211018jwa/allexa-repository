@@ -1,0 +1,20 @@
+Agile
+
+- prevelant in most organizations
+- iterative development
+- meaning we go through the SDLC multiple times
+- enables feedback and response chain
+- project is released in increments
+
+4 core values
+- Individuals and interactions
+- Working software
+- customer collaberation
+- responding to change
+
+Agile Manifesto 12 principles
+- satisfy the customer though early and continuous delivery
+- Deliver working software frequently 
+- Working software is the primary measure of progress
+- promote sutainable development
+- Business people and developers must work together
