@@ -24,8 +24,6 @@ public class ArithmeticController {
 	};
 	
 	public Handler subtract = (ctx) -> {
-		//ctx.result("subtract lambda invoked");
-		
 		String number3Str = ctx.formParam("number1");
 		String number4Str = ctx.formParam("number2");
 		
@@ -33,9 +31,6 @@ public class ArithmeticController {
 	};
 	
 	public Handler multiply = (ctx) -> {
-		//System.out.println("add lambda invoked");
-		//ctx.result("multiply lambda invoked");
-		
 		String number5Str = ctx.formParam("number1");
 		String number6Str = ctx.formParam("number2");
 		
@@ -43,8 +38,6 @@ public class ArithmeticController {
 	};
 	
 	public Handler divide = (ctx) -> {
-		//ctx.result("divide lambda invoked");
-		
 		String number7Str = ctx.formParam("number1");
 		String number8Str = ctx.formParam("number2");
 		

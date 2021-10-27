@@ -53,7 +53,7 @@ public class Main {
 		
 		driver.switchTo().frame("mulResult");
 		WebElement mulOutput = driver.findElement(By.tagName("pre"));
-		System.out.println("10.5 + 15.3 = " + mulOutput.getText());
+		System.out.println("3.5 + 5.3 = " + mulOutput.getText());
 		
 		driver.switchTo().defaultContent();
 		
@@ -67,7 +67,7 @@ public class Main {
 		
 		driver.switchTo().frame("divResult");
 		WebElement divOutput = driver.findElement(By.tagName("pre"));
-		System.out.println("10.5 + 15.3 = " + divOutput.getText());
+		System.out.println("12 + 5 = " + divOutput.getText());
 		
 		driver.switchTo().defaultContent();
 		
