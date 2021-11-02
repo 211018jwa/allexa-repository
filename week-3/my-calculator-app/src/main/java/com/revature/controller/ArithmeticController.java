@@ -25,7 +25,7 @@ public class ArithmeticController {
 			ctx.result(arithmeticService.doAddition(number1Str, number2Str));
 		}
 		catch(MissingNumberInputException e) {
-			
+			ctx.result(e.getMessage());
 		}
 	};
 	
@@ -33,21 +33,36 @@ public class ArithmeticController {
 		String number3Str = ctx.formParam("number1");
 		String number4Str = ctx.formParam("number2");
 		
-		ctx.result(arithmeticService.doSubtraction(number3Str, number4Str));
+		try { 
+			ctx.result(arithmeticService.doSubtraction(number3Str, number4Str));
+		}
+		catch(MissingNumberInputException e) {
+			ctx.result(e.getMessage());
+		}
 	};
 	
 	public Handler multiply = (ctx) -> {
 		String number5Str = ctx.formParam("number1");
 		String number6Str = ctx.formParam("number2");
 		
-		ctx.result(arithmeticService.doMultiplication(number5Str, number6Str));
+		try { 
+			ctx.result(arithmeticService.doMultiplication(number5Str, number6Str));
+		}
+		catch(MissingNumberInputException e) {
+			ctx.result(e.getMessage());
+		}
 	};
 	
 	public Handler divide = (ctx) -> {
 		String number7Str = ctx.formParam("number1");
 		String number8Str = ctx.formParam("number2");
 		
-		ctx.result(arithmeticService.doDivision(number7Str, number8Str));
+		try { 
+			ctx.result(arithmeticService.doDivision(number7Str, number8Str));
+		}
+		catch(MissingNumberInputException e) {
+			ctx.result(e.getMessage());
+		}
 	};
 	
 	public void registerEndpoint(Javalin app) {

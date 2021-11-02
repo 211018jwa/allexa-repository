@@ -8,6 +8,12 @@ public class ArithmeticService {
 		if(leftInput.trim().equals("") && rightInput.trim().equals("")) {
 			throw new MissingNumberInputException("Both inputs are missing");
 		}
+		if(leftInput.trim().equals("")) {
+			throw new MissingNumberInputException("Left input is missing");
+		}
+		if(rightInput.trim().equals("")) {
+			throw new MissingNumberInputException("Right input is missing");
+		}
 	}
 	
 	public String doAddition(String number1Str, String number2Str) {
