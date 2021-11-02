@@ -1,0 +1,43 @@
+Pillars of OOP (APIE)
+- Abstraction
+- Polymorphism
+- Inheritance
+  - Class
+    - public class B extends A{}
+  - Interface
+    - public class B implements InterfaceA, InterfaceB{}  
+- Encapsulation
+  - private type variable
+  - getter: 
+    - allows access to the variable
+    - public String getVar() {
+          return variable; }
+  - setter: 
+    - used to change the value of the variable
+    - public void setVar(type variable) {
+          this.variable = variable; }
+
+Class
+- Fields(variables)
+- Methods(behaviors)
+
+Abstract
+- Classes
+  - base class, a blueprint
+  - can't intanciate
+- Methods
+  - shared by subclasses
+  - no parameters nor functionality
+
+Object Class
+- all classes inherite from the object class
+- includes methods:
+  - equalls: checks to see if they point at the same object
+  - hashcode: reflects the memory address
+  - toString: prints the reference location
+
+Array v. List
+- Array
+  - stores values?
+- List
+  - store refrences to values?
