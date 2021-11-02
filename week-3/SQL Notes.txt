@@ -1,0 +1,15 @@
+database normalization
+- reduce redundancy when designing a database
+-lvl of normalization
+  - 0NF = total chaos
+  - 1NF = datashould be atomic
+    - must have a primary key
+  - 2NF = 1NF + no partial dependencies
+    - must describe the entire key
+  - 3NF = 2NF + no transative dependencies
+    - describes nothing but the key
+
+Multiplicity / Cardinality
+- 1 to 1
+- 1 to many
+- many to many
