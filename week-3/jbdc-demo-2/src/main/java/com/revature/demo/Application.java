@@ -1,27 +1,65 @@
 package com.revature.demo;
 
-import java.sql.SQLException;
-import java.util.List;
+import com.revature.controller.StudentController;
 
-import com.revature.dao.StudentDAO;
-import com.revature.model.Student;
+import io.javalin.Javalin;
+
+//import com.recature.exceptions.StudentNotFoundException;
+//import com.recature.service.StudentService;
+
+//import java.sql.SQLException;
+//import java.util.List;
+
+//import com.revature.dao.StudentDAO;
+//import com.revature.dto.AddOrUpdateStudentDTO;
+//import com.revature.model.Student;
 
 public class Application {
 	public static void main(String[] args) {
 		
-		StudentDAO studentDao = new StudentDAO();
+		Javalin app = Javalin.create();
 		
-		try {
-			List<Student> results = studentDao.getAllStudents();
-			
-			System.out.println(results);
-			
-			Student s = studentDao.getStudentByID(1);
-			System.out.println(s);
-		}
-		catch (SQLException e){
-			e.printStackTrace();
-		}
+		StudentController controller = new StudentController();
+		
+		controller.registerEndpoints(app);
+		
+		app.start();
+		
+//		StudentDAO studentDao = new StudentDAO();
+//		
+//		StudentService studentService = new StudentService();
+//		
+//		try {
+//			studentService.editFirstName(2, "Jane");
+//		}
+//		catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		catch(StudentNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		System.out.println("Nothing crashed");
+//		
+//		try {
+//			List<Student> results = studentDao.getAllStudents();
+//			
+//			System.out.println(results);
+//			
+//			Student s = studentDao.getStudentByID(1);
+//			System.out.println(s);
+//			Student studentToBeAdded = new Student(0, "Andrew", "Doe", "Junior", 21);
+//			
+//			AddOrUpdateStudentDTO studentToUpdate = new AddOrUpdateStudentDTO("Megan", "Doe", "Sophmore", 19);
+//			Student updatedStudent = studentDao.updateStudent(2, studentToUpdate);
+//			System.out.println(updatedStudent);
+//			
+//			//Student insertedRecord = studentDao.addStudent(studentToBeAdded);
+//			//System.out.println(insertedRecord);
+//		}
+//		catch (SQLException e){
+//			e.printStackTrace();
+//		}
 		
 	}
 }

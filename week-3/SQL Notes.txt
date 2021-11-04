@@ -13,3 +13,19 @@ Multiplicity / Cardinality
 - 1 to 1
 - 1 to many
 - many to many
+
+ACID properties
+- Atomiticity: transaction entirely suceeds or not at all
+- Consistency: constraints and referential integrity must be upheld by a transaction
+    - a transaction can't violate the constraints 
+- Isolation: 2 transactions shouldn't be interfering with eachother as they
+    happen in a concurrent situation
+- Durability: once a trnasaction has been committed, those changes are permenantly 
+    stored in the database's storage memory instead of RAM
+
+Scalar function: a function that acts on individual rows of data
+Aggrate function: a function that acts on many rows of data and gives a single value as output
+
+WHERE v. HAVING
+- WHERE : filters out individual rows based on a condition not being met
+- HAVING : filters out the conditions when we have already grouped together data
