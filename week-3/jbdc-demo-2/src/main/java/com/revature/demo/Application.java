@@ -1,27 +1,31 @@
 package com.revature.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.revature.controller.ExceptionMappingController;
 import com.revature.controller.StudentController;
 
 import io.javalin.Javalin;
 
-//import com.recature.exceptions.StudentNotFoundException;
-//import com.recature.service.StudentService;
-
-//import java.sql.SQLException;
-//import java.util.List;
-
-//import com.revature.dao.StudentDAO;
-//import com.revature.dto.AddOrUpdateStudentDTO;
-//import com.revature.model.Student;
 
 public class Application {
 	public static void main(String[] args) {
 		
 		Javalin app = Javalin.create();
 		
+		Logger logger = LoggerFactory.getLogger(Application.class);
+		
+		app.before(ctx -> {
+			logger.info(ctx.method() + " request received to the " + ctx.path() + " endpoint");
+		});
+		
 		StudentController controller = new StudentController();
 		
 		controller.registerEndpoints(app);
+		
+		ExceptionMappingController exceptionController = new ExceptionMappingController();
+		exceptionController.mapExceptions(app);
 		
 		app.start();
 		

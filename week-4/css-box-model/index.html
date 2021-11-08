@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset ="UTF-8">
+        <meta http-equiv="X-UA-Compatible">
+        <meta name="viewpoint" content="width">
+        <title>Box Model</title>
+
+        <style>
+            .box {
+                border-style: solid;
+                border-width: 5px;
+                border-color: black;
+                text-align: center;
+            }
+
+            .green-box {
+                padding: 100px;
+                background-color: green;
+                margin: 100px;
+                position: relative;
+            }
+
+            .red-box {
+                padding: 10px;
+                background-color: red;
+                margin-bottom: 10px;
+
+                position: relative;
+                left: 100px;
+                top: 100px;
+                z-index: 100;
+            }
+
+            .blue-box {
+                background-color: blue;
+                padding: 100px 10px 100px 10px;
+                font-family: 'Lobster';
+                color: white;
+                margin-top: 10px;
+                position: absolute;
+                bottom: 100px;
+                z-index: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box green-box">
+            <div class="box red-box">Padding</div>
+            <div class="box blue-box">Padding</div>
+        </div>
+    </body>
+
+</html>

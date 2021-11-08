@@ -9,8 +9,10 @@ public class AddOrUpdateStudentDTO {
 	private String classification;
 	private int age;
 	
+	public AddOrUpdateStudentDTO() {	
+	}
+	
 	public AddOrUpdateStudentDTO(String firstName, String lastName, String classification, int age) {
-		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.classification = classification;

@@ -1,0 +1,58 @@
+API
+- Application Programming Interface
+- enables 2 apps to interact
+- code that can be accessed and executed
+- Examples
+  - String API
+  - Collections API
+  - JDBC API
+- External Libraries
+  - Javalin API
+  - JUnit 5 API: assertion class, annotations
+  - Selenium APi: automation scripts
+
+Web Service
+- client/server relationship
+- provides a common platform for many apps of different programming 
+    languages to communicate through a common standard
+
+Soap
+- Simple Object Access Protocol
+- old and typically ot used
+- data is transferred in xml format
+
+RESTful web services
+- Representational State Tranfer
+- leightweight, maintainable, and scalable
+- uses JSON
+- uses HTTP
+- key element
+  - Request
+    - Recourses: specifies in the URL
+    - Request Verbs: 
+    - Request Headers: 
+    - Request Body: 
+  - Response
+    - Response Status Codes: 
+    - Response Body: 
+    - Response Headers: 
+-REST Constraints
+ - Stateless
+   - server shouldn't save info on previous request
+   - might be ignored in the futurefor the implementation of login 
+       functionality
+- Cacheable
+  - caching is for improved performance
+- Uniform Interface
+  - uniform way of representing our resources
+  - methods should be consistent
+  - similar structure for different resources
+- Client/Server relationshipd
+  - API should have an evolving relationship with the cliet
+  - As resources are added/changed/deleted, we should have dynamic 
+      behavior
+- Layered Architecture
+  - web service/API could be structured as many different servers
+    - hidden from the user
+    - only aware of their designated destination rather than the possible 
+        layers

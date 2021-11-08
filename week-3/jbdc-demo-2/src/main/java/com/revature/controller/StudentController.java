@@ -1,9 +1,13 @@
 package com.revature.controller;
 
-import com.recature.exceptions.StudentNotFoundException;
-import com.recature.service.StudentService;
-import com.revature.dto.EditFirstNameDTO;
+import java.util.List;
+
+import com.revature.dto.AddOrUpdateStudentDTO;
+import com.revature.dto.ExceptionMessageDTO;
+import com.revature.exceptions.InvalidParameterException;
+import com.revature.exceptions.StudentNotFoundException;
 import com.revature.model.Student;
+import com.revature.service.StudentService;
 
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
@@ -19,25 +23,59 @@ public class StudentController {
 	private Handler editStudentFirstName = (ctx) -> {
 		String studentID = ctx.pathParam("id");
 		
-		int id = Integer.parseInt(studentID);
+		AddOrUpdateStudentDTO dto = ctx.bodyAsClass(AddOrUpdateStudentDTO.class);
 		
-		EditFirstNameDTO dto = ctx.bodyAsClass(EditFirstNameDTO.class);
+		Student studentThatWasJustEdited = this.studentService.editFirstName(studentID, dto.getFirstName());
 		
-		try{ 
-			Student studentThatWasJustEdited = this.studentService.editFirstName(id, dto.getFirstName());
-			
-			ctx.json(studentThatWasJustEdited);
-		}
-		catch(StudentNotFoundException e) {
-			ctx.status(404);
-			ctx.json(e);
-		}
+		ctx.json(studentThatWasJustEdited);
+	};
+	
+	private Handler addStudent = ctx -> {
+		AddOrUpdateStudentDTO dto = ctx.bodyAsClass(AddOrUpdateStudentDTO.class);
 		
-		//System.out.println(studentID);
+		Student s = this.studentService.addStudent(dto);
+		
+		ctx.json(s);
+		ctx.status(201);
+		
+	};
+	
+	private Handler getAllStudents = ctx -> {
+		List<Student> students = this.studentService.getAllStudents();
+		ctx.json(students);
+	};
+	
+	private Handler getStudentByID = ctx -> {
+		String id = ctx.pathParam("id");
+		
+		Student s = this.studentService.getStudentByID(id);
+		
+		ctx.json(s);
+	};
+	
+	private Handler editStudentByID = ctx -> {
+		
+	};
+	
+	private Handler deleteStudentByID = ctx -> {
+		String id = ctx.pathParam("id");
+		
+		this.studentService.deleteStudentByID(id);
+	};
+	
+	private Handler deleteAllStudents = ctx -> {
+		
 	};
 	
 	public void registerEndpoints(Javalin app) {
 		app.patch("/students/{id}/firstname", editStudentFirstName);
+		
+		app.post("/students", addStudent);
+		app.get("/students", getAllStudents);
+		app.get("/students/{id}", getStudentByID);
+		app.put("/students/{id}", editStudentByID);
+		app.delete("/students/{id}", deleteStudentByID);
+		app.delete("/students", deleteAllStudents);
 	}
 	
 }

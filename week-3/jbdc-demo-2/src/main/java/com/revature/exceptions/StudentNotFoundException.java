@@ -1,6 +1,6 @@
-package com.recature.exceptions;
+package com.revature.exceptions;
 
-public class StudentNotFoundException extends RuntimeException {
+public class StudentNotFoundException extends Exception {
 
 	public StudentNotFoundException() {
 		super();

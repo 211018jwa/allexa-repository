@@ -12,3 +12,6 @@ INSERT INTO bankAccount
 VALUES 
 	(1,'John', 'Doe', 'Checking Account'),
 	(2,'John', 'Doe', 'Savings Account');
+	
+SELECT *
+FROM bankAccount
