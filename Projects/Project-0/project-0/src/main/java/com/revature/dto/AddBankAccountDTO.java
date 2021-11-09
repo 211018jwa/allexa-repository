@@ -1,49 +1,40 @@
 package com.revature.dto;
 
+import java.util.Objects;
+
 public class AddBankAccountDTO {
-	private String clientFirstName;
-	private String clientLastName;
-	private String clientAccountType;
+	private String accountType;
+	private double balance;
 	
-	public AddBankAccountDTO(String clientFirstName, String clientLastName, String clientAccountType) {
+	public AddBankAccountDTO() {
+		
+	}
+	
+	public AddBankAccountDTO(String accountType, double balance) {
 		super();
-		this.clientFirstName = clientFirstName;
-		this.clientLastName = clientLastName;
-		this.clientAccountType = clientAccountType;
+		this.accountType = accountType;
+		this.balance = balance;
 	}
 
-	public String getClientFirstName() {
-		return clientFirstName;
+	public String getAccountType() {
+		return accountType;
 	}
 
-	public void setClientFirstName(String clientFirstName) {
-		this.clientFirstName = clientFirstName;
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
 	}
 
-	public String getClientLastName() {
-		return clientLastName;
+	public double getBalance() {
+		return balance;
 	}
 
-	public void setClientLastName(String clientLastName) {
-		this.clientLastName = clientLastName;
-	}
-
-	public String getClientAccountType() {
-		return clientAccountType;
-	}
-
-	public void setClientAccountType(String clientAccountType) {
-		this.clientAccountType = clientAccountType;
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((clientAccountType == null) ? 0 : clientAccountType.hashCode());
-		result = prime * result + ((clientFirstName == null) ? 0 : clientFirstName.hashCode());
-		result = prime * result + ((clientLastName == null) ? 0 : clientLastName.hashCode());
-		return result;
+		return Objects.hash(accountType, balance);
 	}
 
 	@Override
@@ -55,28 +46,13 @@ public class AddBankAccountDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		AddBankAccountDTO other = (AddBankAccountDTO) obj;
-		if (clientAccountType == null) {
-			if (other.clientAccountType != null)
-				return false;
-		} else if (!clientAccountType.equals(other.clientAccountType))
-			return false;
-		if (clientFirstName == null) {
-			if (other.clientFirstName != null)
-				return false;
-		} else if (!clientFirstName.equals(other.clientFirstName))
-			return false;
-		if (clientLastName == null) {
-			if (other.clientLastName != null)
-				return false;
-		} else if (!clientLastName.equals(other.clientLastName))
-			return false;
-		return true;
+		return Objects.equals(accountType, other.accountType)
+				&& Double.doubleToLongBits(balance) == Double.doubleToLongBits(other.balance);
 	}
 
 	@Override
 	public String toString() {
-		return "BankAccountDTO [clientFirstName=" + clientFirstName + ", clientLastName=" + clientLastName
-				+ ", clientAccountType=" + clientAccountType + "]";
+		return "AddBankAccountDTO [accountType=" + accountType + ", balance=" + balance + "]";
 	}
 	
 }

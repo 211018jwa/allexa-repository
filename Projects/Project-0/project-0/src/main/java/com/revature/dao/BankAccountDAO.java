@@ -17,19 +17,18 @@ public class BankAccountDAO {
 	public BankAccount addBankAccount(AddBankAccountDTO bankAccount) throws SQLException {
 		try(Connection con = JDBCUtility.getConnection()){
 			
-			String sql = "INSERT INTO students (client_first_name, client_last_name, client_bank_account_type) "
-					+ "VALUES (?, ?, ?)";
+			String sql = "INSERT INTO bankAccount (bank_account_type, bank_account_balance) "
+					+ "VALUES (?, ?)";
 			
 			PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			
-			pstmt.setString(1, bankAccount.getClientFirstName());
-			pstmt.setString(2, bankAccount.getClientLastName());
-			pstmt.setString(3, bankAccount.getClientAccountType());
+			pstmt.setString(1, bankAccount.getAccountType());
+			pstmt.setDouble(2, bankAccount.getBalance());
 			
 			int numOfRecordsInserted = pstmt.executeUpdate();
 			
 			if(numOfRecordsInserted != 1) {
-				throw new SQLException("Adding a new new Bank Account was unsuccessful.");
+				throw new SQLException("Adding a new Bank Account was unsuccessful.");
 			}
 			
 			ResultSet rs = pstmt.getGeneratedKeys();
@@ -37,7 +36,7 @@ public class BankAccountDAO {
 			rs.next();
 			int generatedID = rs.getInt(1);
 			
-			return new BankAccount(generatedID, bankAccount.getClientFirstName(), bankAccount.getClientLastName(), bankAccount.getClientAccountType());
+			return new BankAccount(generatedID, bankAccount.getAccountType(), bankAccount.getBalance());
 		}
 	}
 	
@@ -51,12 +50,11 @@ public class BankAccountDAO {
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				int id = rs.getInt("client_bank_account_id");
-				String firstName = rs.getString("client_first_name");
-				String lastName = rs.getString("client_last_name");
-				String accountType = rs.getString("client_bank_account_type");
+				int id = rs.getInt("account_id");
+				String accountType = rs.getString("bank_account_type");
+				double accountBalance = rs.getDouble("bank_account_balance");
 				
-				BankAccount b = new BankAccount(id, firstName, lastName, accountType);
+				BankAccount b = new BankAccount(id, accountType, accountBalance);
 				listOfAccounts.add(b);
 			}
 		}
@@ -75,8 +73,7 @@ public class BankAccountDAO {
 			ResultSet rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				return new BankAccount(rs.getInt("client_bank_account_id"), rs.getString("client_first_name"),
-						rs.getString("client_last_name"), rs.getString("client_bank_account_type"));
+				return new BankAccount(rs.getInt("account_id"), rs.getString("bank_account_type"), rs.getDouble("bank_account_balance"));
 			}
 			else {
 				return null;
@@ -87,17 +84,15 @@ public class BankAccountDAO {
 	public BankAccount updateAccount(int accountID, AddBankAccountDTO account) throws SQLException {
 		try(Connection con = JDBCUtility.getConnection()) {
 			String sql = "Update bankAccount "
-					+ "SET client_first_name = ?, "
-					+ "		client_first_name = ?, "
-					+ "		client_bank_account_type = ? "
+					+ "SET bank_account_type = ? "
+					+ "		bank_account_balance = ?, "
 					+ "WHERE "
-					+ "client_bank_account_id = ?; ";
+					+ "account_id = ?; ";
 			
 			PreparedStatement pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, account.getClientFirstName());
-			pstmt.setString(2, account.getClientLastName());
-			pstmt.setString(3, account.getClientAccountType());
-			pstmt.setInt(4, accountID);
+			pstmt.setString(1, account.getAccountType());
+			pstmt.setDouble(1, account.getBalance());
+			pstmt.setInt(3, accountID);
 			
 			int numOfRecordsUpdated = pstmt.executeUpdate();
 			
@@ -105,12 +100,12 @@ public class BankAccountDAO {
 				throw new SQLException("Unable to update bank acoount with an id of "+ accountID);
 			}
 		}
-		return new BankAccount(accountID, account.getClientFirstName(), account.getClientLastName(), account.getClientAccountType());
+		return new BankAccount(accountID, account.getAccountType(), account.getBalance());
 	}
 	
 	public void deleteBankAccountByID(int id) throws SQLException {
 		try(Connection con = JDBCUtility.getConnection()){
-			String sql = "DELETE FROM students WHERE client_bank_account_id = ?";
+			String sql = "DELETE FROM bankAccount WHERE account_id = ?";
 			
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			
@@ -124,7 +119,7 @@ public class BankAccountDAO {
 		}
 	}
 	
-	public void deleteAllStudents() throws SQLException {
+	public void deleteAllBankAccounts() throws SQLException {
 		try(Connection con = JDBCUtility.getConnection()) {
 			String sql = "DELETE FROM bankAccount";
 			

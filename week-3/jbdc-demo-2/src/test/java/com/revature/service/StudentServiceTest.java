@@ -93,7 +93,7 @@ public class StudentServiceTest {
 		
 		StudentService studentService = new StudentService(mockStudentDao);
 		
-		Assertions.assertThrows(StudentNotFoundException.class, () -> {
+		Assertions.assertThrows(InvalidParameterException.class, () -> {
 			studentService.getStudentByID("abc");
 		});
 	}
@@ -104,7 +104,7 @@ public class StudentServiceTest {
 		
 		StudentService studentService = new StudentService(mockStudentDao);
 		
-		Assertions.assertThrows(StudentNotFoundException.class, () -> {
+		Assertions.assertThrows(InvalidParameterException.class, () -> {
 			studentService.getStudentByID("1.0");
 		});
 	}
@@ -181,6 +181,75 @@ public class StudentServiceTest {
 		
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
 			studentService.addStudent(dto);
+		});
+		
+	}
+	
+	@Test
+	public void testAddStudentLastNameBlankEverythingElseValid() throws InvalidParameterException, SQLException {
+		
+		StudentDAO studentDao = mock(StudentDAO.class);
+				
+		StudentService studentService = new StudentService(studentDao);
+		
+		AddOrUpdateStudentDTO dto = new AddOrUpdateStudentDTO("Billy", "                 ", "Freshman", 5);
+		
+		Assertions.assertThrows(InvalidParameterException.class, () -> {
+			
+			studentService.addStudent(dto);
+			
+		});
+		
+	
+	}
+	
+	@Test
+	public void testAddStudentFirstNameAndLastNameBlankEverythingElseValid() throws InvalidParameterException, SQLException {
+		
+		StudentDAO studentDao = mock(StudentDAO.class);
+				
+		StudentService studentService = new StudentService(studentDao);
+		
+		AddOrUpdateStudentDTO dto = new AddOrUpdateStudentDTO("", "                 ", "Freshman", 5);
+		
+		Assertions.assertThrows(InvalidParameterException.class, () -> {
+			
+			studentService.addStudent(dto);
+			
+		});
+		
+	}
+	
+	@Test
+	public void testAddStudentFreshmanSpelledIncorrectlyEverythingElseValid() throws InvalidParameterException, SQLException {
+		
+		StudentDAO studentDao = mock(StudentDAO.class);
+				
+		StudentService studentService = new StudentService(studentDao);
+		
+		AddOrUpdateStudentDTO dto = new AddOrUpdateStudentDTO("Billy", "    Tran             ", "Freshmon", 5);
+		
+		Assertions.assertThrows(InvalidParameterException.class, () -> {
+			
+			studentService.addStudent(dto);
+			
+		});
+		
+	}
+	
+	@Test
+	public void testAddStudentAgeIsNegativeEverythingElseValid() throws InvalidParameterException, SQLException {
+		
+		StudentDAO studentDao = mock(StudentDAO.class);
+				
+		StudentService studentService = new StudentService(studentDao);
+		
+		AddOrUpdateStudentDTO dto = new AddOrUpdateStudentDTO("Billy", "    Tran             ", "Freshman", -100);
+		
+		Assertions.assertThrows(InvalidParameterException.class, () -> {
+			
+			studentService.addStudent(dto);
+			
 		});
 		
 	}
