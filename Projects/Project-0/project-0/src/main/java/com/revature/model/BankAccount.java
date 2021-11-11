@@ -11,19 +11,19 @@ public class BankAccount {
 		
 	}
 	
-	public BankAccount(int clientID, String accountType, double balance) {
+	public BankAccount(int accountID, String accountType, double balance) {
 		super();
-		this.accountID = clientID;
+		this.accountID = accountID;
 		this.accountType = accountType;
 		this.balance = balance;
 	}
 
-	public int getClientID() {
+	public int getAccountID() {
 		return accountID;
 	}
 
-	public void setClientID(int clientID) {
-		this.accountID = clientID;
+	public void setAccountID(int accountID) {
+		this.accountID = accountID;
 	}
 
 	public String getAccountType() {
@@ -44,7 +44,7 @@ public class BankAccount {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(accountType, balance, accountID);
+		return Objects.hash(accountID, accountType, balance);
 	}
 
 	@Override
@@ -56,14 +56,13 @@ public class BankAccount {
 		if (getClass() != obj.getClass())
 			return false;
 		BankAccount other = (BankAccount) obj;
-		return Objects.equals(accountType, other.accountType)
-				&& Double.doubleToLongBits(balance) == Double.doubleToLongBits(other.balance)
-				&& accountID == other.accountID;
+		return accountID == other.accountID && Objects.equals(accountType, other.accountType)
+				&& Double.doubleToLongBits(balance) == Double.doubleToLongBits(other.balance);
 	}
 
 	@Override
 	public String toString() {
-		return "BankAccount [clientID=" + accountID + ", accountType=" + accountType + ", balance=" + balance + "]";
+		return "BankAccount [accountID=" + accountID + ", accountType=" + accountType + ", balance=" + balance + "]";
 	}
 	
 }

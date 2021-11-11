@@ -16,7 +16,7 @@ public class StudentDAO {
 	public Student addStudent(AddOrUpdateStudentDTO student) throws SQLException {
 		try(Connection con = JDBCUtility.getConnection()) {
 			String sql = "INSERT INTO students (student_first_name, student_last_name, student_classification, student_age) "
-					+ "VALUES (?, ?, ?, ?)";
+					+ " VALUES (?, ?, ?, ?)";
 			PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			
 			pstmt.setString(1, student.getFirstName());

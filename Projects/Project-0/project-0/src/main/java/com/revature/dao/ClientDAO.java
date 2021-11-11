@@ -13,7 +13,7 @@ import com.revature.model.Client;
 import com.revature.util.JDBCUtility;
 
 public class ClientDAO {
-	public Client addBankAccount(AddClientDTO client) throws SQLException {
+	public Client addClient(AddClientDTO client) throws SQLException {
 		try(Connection con = JDBCUtility.getConnection()){
 			
 			String sql = "INSERT INTO clients (client_first_name, client_last_name) "
@@ -81,7 +81,7 @@ public class ClientDAO {
 		}
 	}
 	
-	public Client updateAccount(int clientID, AddClientDTO account) throws SQLException {
+	public Client updateClient(int clientID, AddClientDTO account) throws SQLException {
 		try(Connection con = JDBCUtility.getConnection()) {
 			String sql = "Update clients "
 					+ "SET client_first_name = ?, "

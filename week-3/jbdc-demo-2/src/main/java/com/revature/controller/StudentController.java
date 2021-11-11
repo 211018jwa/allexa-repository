@@ -54,7 +54,13 @@ public class StudentController {
 	};
 	
 	private Handler editStudentByID = ctx -> {
+		String id = ctx.pathParam("id");
+		String firstName = ctx.pathParam("firstname");
 		
+		Student s = this.studentService.editFirstName(id, firstName);
+		
+		ctx.json(s);
+		ctx.status(201);
 	};
 	
 	private Handler deleteStudentByID = ctx -> {

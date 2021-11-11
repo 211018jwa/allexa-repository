@@ -132,5 +132,29 @@ public class BankAccountDAO {
 			}
 		}
 	}
+
+	public List<BankAccount> getAllAccountsByClientID(int clientID) throws SQLException {
+		List<BankAccount> accounts = new ArrayList<>();
+		
+		try(Connection con = JDBCUtility.getConnection()) {
+			String sql = "SELECT * FROM bankAccount WHERE client_id = ?";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, clientID);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int id = rs.getInt("account_id");
+				String type = rs.getString("account_type");
+				double balance = rs.getDouble("account_balance");
+				
+				BankAccount a = new BankAccount(id, type, balance);
+				
+				accounts.add(a);
+			}
+		}
+		
+		return accounts;
+	}
 	
 }

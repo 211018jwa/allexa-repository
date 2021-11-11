@@ -8,6 +8,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.revature.dao.GradeDAO;
 import com.revature.dao.StudentDAO;
 import com.revature.dto.AddOrUpdateStudentDTO;
 import com.revature.exceptions.InvalidParameterException;
@@ -19,13 +20,20 @@ public class StudentService {
 	private Logger logger = LoggerFactory.getLogger(StudentService.class);
 	
 	private StudentDAO studentDao;
+	private GradeDAO gradeDao;
 	
 	public StudentService() {
 		this.studentDao = new StudentDAO();
+		this.gradeDao = new GradeDAO();
 	}
 	
 	public StudentService(StudentDAO studentDao) {
 		this.studentDao = studentDao;
+	}
+	
+	public StudentService(StudentDAO studentDao, GradeDAO gradeDao) {
+		this.studentDao = studentDao;
+		this.gradeDao = gradeDao;
 	}
 	
 	public Student editFirstName(String studentID, String changeName) throws SQLException, StudentNotFoundException, InvalidParameterException {
@@ -77,7 +85,7 @@ public class StudentService {
 	
 	public Student addStudent(AddOrUpdateStudentDTO dto) throws SQLException, InvalidParameterException {
 		if(dto.getFirstName().trim().equals("") || dto.getLastName().trim().equals("")) {
-			throw new InvalidParameterException("First nameand/or last name cannot be blank");
+			throw new InvalidParameterException("First name and/or last name cannot be blank");
 		}
 		
 		Set<String> validClassifications = new HashSet<>();
@@ -111,6 +119,8 @@ public class StudentService {
 			if(student == null) {
 				throw new StudentNotFoundException("Student with id " + studentID + " was not found, therefore could not be deleted");
 			}
+			
+			this.gradeDao.deleteAllGradesByStudentID(id);
 			
 			this.studentDao.deleteStudentByID(id);
 		}
