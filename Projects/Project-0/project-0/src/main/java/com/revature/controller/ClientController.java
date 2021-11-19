@@ -40,7 +40,7 @@ public class ClientController {
 	};
 	
 	private Handler editClientByID = ctx -> {
-		String id = ctx.pathParam("id");
+		String id = ctx.pathParam("client_id");
 		String firstName = ctx.pathParam("firstname");
 		
 		Client s = this.clientService.editFirstName(id, firstName);

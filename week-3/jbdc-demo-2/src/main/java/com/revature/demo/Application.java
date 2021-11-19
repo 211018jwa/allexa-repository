@@ -13,7 +13,9 @@ import io.javalin.Javalin;
 public class Application {
 	public static void main(String[] args) {
 		
-		Javalin app = Javalin.create();
+		Javalin app = Javalin.create((config) -> {
+			config.enableCorsForOrigin("http://localhost:5500", "http://127.0.0.1:5500", "http://student-app-01.s3-website.us-east-2.amazonaws.com");
+		});
 		
 		Logger logger = LoggerFactory.getLogger(Application.class);
 		

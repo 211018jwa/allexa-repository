@@ -84,6 +84,8 @@ public class StudentService {
 	}
 	
 	public Student addStudent(AddOrUpdateStudentDTO dto) throws SQLException, InvalidParameterException {
+		InvalidParameterException e = new InvalidParameterException();
+		
 		if(dto.getFirstName().trim().equals("") || dto.getLastName().trim().equals("")) {
 			throw new InvalidParameterException("First name and/or last name cannot be blank");
 		}

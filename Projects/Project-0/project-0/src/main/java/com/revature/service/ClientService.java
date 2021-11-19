@@ -3,6 +3,10 @@ package com.revature.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.revature.dao.BankAccountDAO;
 import com.revature.dao.ClientDAO;
 import com.revature.dto.AddClientDTO;
 import com.revature.exceptions.ClientNotFoundException;
@@ -11,13 +15,19 @@ import com.revature.model.Client;
 
 public class ClientService {
 	private ClientDAO clientDao;
+	private BankAccountDAO bankAccountDao;
+	
+	private Logger logger = LoggerFactory.getLogger(ClientService.class);
+
 
 	public ClientService() {
 		this.clientDao = new ClientDAO();
+		this.bankAccountDao = new BankAccountDAO();
 	}
 	
-	public ClientService(ClientDAO clientDao) {
+	public ClientService(ClientDAO clientDao, BankAccountDAO bankAccountDao) {
 		this.clientDao = clientDao;
+		this.bankAccountDao = bankAccountDao;
 	}
 	
 	public Client editFirstName(String clientID, String changeName) throws SQLException, ClientNotFoundException, InvalidParameterException {
@@ -50,6 +60,9 @@ public class ClientService {
 	public Client getClientByID(String clientID) throws SQLException, ClientNotFoundException, InvalidParameterException {
 		try {
 			int id = Integer.parseInt(clientID);
+			
+			logger.info("client id {}", clientID);
+
 			
 			Client c = this.clientDao.getClientByID(id);
 			
@@ -85,6 +98,9 @@ public class ClientService {
 			if(client == null) {
 				throw new ClientNotFoundException("Client with id " + clientID + " was not found, therefore could not be deleted.");
 			}
+			
+			this.bankAccountDao.deleteAllBankAccountsByClientID(id);
+			this.clientDao.deleteClientByID(id);
 		}
 		catch(NumberFormatException e) {
 			throw new InvalidParameterException("ID provided is not an int");

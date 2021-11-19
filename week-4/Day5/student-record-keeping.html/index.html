@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student recordkeeper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- We will make use of CSS grid, so we will have our main "grid" inside of this div-->
+    <div class="main-grid-container">
+        <!-- Navigation Bar -->
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Services</a></li>
+            </ul>
+        </nav>
+
+        <section class="main-section">
+            <div class="table-container">
+                <h1>Student Management</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>first name</th>
+                            <th>last name</th>
+                            <th>classification</th>
+                            <th>age</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-container">
+                <h1>Add a New Student:</h1>
+
+                <label>First Name:</label>
+                <input id="first-name" type="text" />
+                <label>Last Name:</label>
+                <input id="last-name" type="text" />
+                <label>Classification:</label>
+                <select id="classification">
+                    <option value="Freshman">Freshman</option>
+                    <option value="Sophmore">Sophmore</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Senior">Senior</option>
+                </select>
+                <label>Age:</label>
+                <input id="age" type="number" />
+
+                <button id="student-submit">Add Student</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>

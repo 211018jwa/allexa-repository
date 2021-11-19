@@ -5,17 +5,19 @@ import java.util.Objects;
 public class BankAccount {
 	private int accountID;
 	private String accountType;
-	private double balance;
+	private int balance;
+	private int clientID;
 	
 	public BankAccount() {
 		
 	}
 	
-	public BankAccount(int accountID, String accountType, double balance) {
+	public BankAccount(int accountID, String accountType, int balance, int clientID) {
 		super();
 		this.accountID = accountID;
 		this.accountType = accountType;
 		this.balance = balance;
+		this.clientID = clientID;
 	}
 
 	public int getAccountID() {
@@ -34,17 +36,25 @@ public class BankAccount {
 		this.accountType = accountType;
 	}
 
-	public double getBalance() {
+	public int getBalance() {
 		return balance;
 	}
 
-	public void setBalance(double balance) {
+	public void setBalance(int balance) {
 		this.balance = balance;
+	}
+
+	public int getClientID() {
+		return clientID;
+	}
+
+	public void setClientID(int clientID) {
+		this.clientID = clientID;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(accountID, accountType, balance);
+		return Objects.hash(accountID, accountType, balance, clientID);
 	}
 
 	@Override
@@ -57,12 +67,13 @@ public class BankAccount {
 			return false;
 		BankAccount other = (BankAccount) obj;
 		return accountID == other.accountID && Objects.equals(accountType, other.accountType)
-				&& Double.doubleToLongBits(balance) == Double.doubleToLongBits(other.balance);
+				&& balance == other.balance && clientID == other.clientID;
 	}
 
 	@Override
 	public String toString() {
-		return "BankAccount [accountID=" + accountID + ", accountType=" + accountType + ", balance=" + balance + "]";
+		return "BankAccount [accountID=" + accountID + ", accountType=" + accountType + ", balance=" + balance
+				+ ", clientID=" + clientID + "]";
 	}
 	
 }

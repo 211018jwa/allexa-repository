@@ -3,17 +3,27 @@ package com.revature.dto;
 import java.util.Objects;
 
 public class AddBankAccountDTO {
+	private int clientID;
 	private String accountType;
-	private double balance;
+	private int balance;
 	
 	public AddBankAccountDTO() {
 		
 	}
 	
-	public AddBankAccountDTO(String accountType, double balance) {
+	public AddBankAccountDTO(int clientID, String accountType, int balance) {
 		super();
+		this.clientID = clientID;
 		this.accountType = accountType;
 		this.balance = balance;
+	}
+
+	public int getClientID() {
+		return clientID;
+	}
+
+	public void setClientID(int clientID) {
+		this.clientID = clientID;
 	}
 
 	public String getAccountType() {
@@ -24,17 +34,17 @@ public class AddBankAccountDTO {
 		this.accountType = accountType;
 	}
 
-	public double getBalance() {
+	public int getBalance() {
 		return balance;
 	}
 
-	public void setBalance(double balance) {
+	public void setBalance(int balance) {
 		this.balance = balance;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(accountType, balance);
+		return Objects.hash(accountType, balance, clientID);
 	}
 
 	@Override
@@ -46,13 +56,14 @@ public class AddBankAccountDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		AddBankAccountDTO other = (AddBankAccountDTO) obj;
-		return Objects.equals(accountType, other.accountType)
-				&& Double.doubleToLongBits(balance) == Double.doubleToLongBits(other.balance);
+		return Objects.equals(accountType, other.accountType) && Objects.equals(balance, other.balance)
+				&& clientID == other.clientID;
 	}
 
 	@Override
 	public String toString() {
-		return "AddBankAccountDTO [accountType=" + accountType + ", balance=" + balance + "]";
+		return "AddBankAccountDTO [clientID=" + clientID + ", accountType=" + accountType + ", balance=" + balance
+				+ "]";
 	}
 	
 }

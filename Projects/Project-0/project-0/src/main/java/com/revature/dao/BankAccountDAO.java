@@ -8,22 +8,30 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.revature.dto.AddBankAccountDTO;
 import com.revature.model.BankAccount;
 import com.revature.util.JDBCUtility;
 
 public class BankAccountDAO {
 	
-	public BankAccount addBankAccount(AddBankAccountDTO bankAccount) throws SQLException {
+	private Logger logger = LoggerFactory.getLogger(BankAccountDAO.class);
+	
+	public BankAccount addBankAccount(AddBankAccountDTO bankAccount, int clientID) throws SQLException {
+		logger.info("addAccount in DAO layer invoked");
+		
 		try(Connection con = JDBCUtility.getConnection()){
 			
-			String sql = "INSERT INTO bankAccount (bank_account_type, bank_account_balance) "
-					+ "VALUES (?, ?)";
+			String sql = "INSERT INTO bankAccount (account_type, balance, client_id) "
+					+ "VALUES (?, ?, ?)";
 			
 			PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			
 			pstmt.setString(1, bankAccount.getAccountType());
-			pstmt.setDouble(2, bankAccount.getBalance());
+			pstmt.setInt(2, bankAccount.getBalance());
+			pstmt.setInt(3, clientID);
 			
 			int numOfRecordsInserted = pstmt.executeUpdate();
 			
@@ -36,7 +44,7 @@ public class BankAccountDAO {
 			rs.next();
 			int generatedID = rs.getInt(1);
 			
-			return new BankAccount(generatedID, bankAccount.getAccountType(), bankAccount.getBalance());
+			return new BankAccount(generatedID, bankAccount.getAccountType(), bankAccount.getBalance(), clientID);
 		}
 	}
 	
@@ -51,10 +59,11 @@ public class BankAccountDAO {
 			
 			while(rs.next()) {
 				int id = rs.getInt("account_id");
-				String accountType = rs.getString("bank_account_type");
-				double accountBalance = rs.getDouble("bank_account_balance");
+				String accountType = rs.getString("account_type");
+				int accountBalance = rs.getInt("balance");
+				int clientID = rs.getInt("client_id");
 				
-				BankAccount b = new BankAccount(id, accountType, accountBalance);
+				BankAccount b = new BankAccount(id, accountType, accountBalance, clientID);
 				listOfAccounts.add(b);
 			}
 		}
@@ -62,18 +71,19 @@ public class BankAccountDAO {
 		return listOfAccounts;
 	}
 	
-	public BankAccount getAccountByID(int id) throws SQLException {
+	public BankAccount getAccountByIDAndClientID(int clientID, int accountID) throws SQLException {
 		try(Connection con = JDBCUtility.getConnection()){
-			String sql = "SELECT * FROM bankAccount WHERE client_bank_account_id = ?";
+			String sql = "SELECT * FROM bankAccount WHERE client_id = ? AND account_id = ?";
 			
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			
-			pstmt.setInt(1, id);
+			pstmt.setInt(1, clientID);
+			pstmt.setInt(2, accountID);
 			
 			ResultSet rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				return new BankAccount(rs.getInt("account_id"), rs.getString("bank_account_type"), rs.getDouble("bank_account_balance"));
+				return new BankAccount(rs.getInt("account_id"), rs.getString("account_type"), rs.getInt("balance"), rs.getInt("client_id"));
 			}
 			else {
 				return null;
@@ -81,18 +91,19 @@ public class BankAccountDAO {
 		}
 	}
 	
-	public BankAccount updateAccount(int accountID, AddBankAccountDTO account) throws SQLException {
+	public BankAccount updateAccount(int clientID, int accountID, AddBankAccountDTO account) throws SQLException {
 		try(Connection con = JDBCUtility.getConnection()) {
 			String sql = "Update bankAccount "
-					+ "SET bank_account_type = ? "
-					+ "		bank_account_balance = ?, "
+					+ "SET account_type = ? "
+					+ "		balance = ?, "
 					+ "WHERE "
-					+ "account_id = ?; ";
+					+ "client_id = ? AND account_id = ?; ";
 			
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, account.getAccountType());
-			pstmt.setDouble(1, account.getBalance());
-			pstmt.setInt(3, accountID);
+			pstmt.setInt(2, account.getBalance());
+			pstmt.setInt(3, clientID);
+			pstmt.setInt(4, accountID);
 			
 			int numOfRecordsUpdated = pstmt.executeUpdate();
 			
@@ -100,22 +111,36 @@ public class BankAccountDAO {
 				throw new SQLException("Unable to update bank acoount with an id of "+ accountID);
 			}
 		}
-		return new BankAccount(accountID, account.getAccountType(), account.getBalance());
+		return new BankAccount(accountID, account.getAccountType(), account.getBalance(), account.getClientID());
 	}
 	
-	public void deleteBankAccountByID(int id) throws SQLException {
+	public void deleteBankAccountByID(int clientID, int accountID) throws SQLException {
 		try(Connection con = JDBCUtility.getConnection()){
-			String sql = "DELETE FROM bankAccount WHERE account_id = ?";
+			String sql = "DELETE FROM bankAccount WHERE client_id = ? AND account_id = ?";
 			
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			
-			pstmt.setInt(1, id);
+			pstmt.setInt(1, clientID);
+			pstmt.setInt(2, accountID);
 			
 			int numberOfRecordsDeleted = pstmt.executeUpdate();
 			
 			if(numberOfRecordsDeleted != 1) {
-				throw new SQLException("Unable to delete bank account with an id of " + id);
+				throw new SQLException("Unable to delete bank account with an client id of " + clientID + " and account id of " + accountID);
 			}
+		}
+	}
+	
+	public void deleteAllBankAccountsByClientID(int clientID) throws SQLException {
+		try(Connection con = JDBCUtility.getConnection()){
+			String sql = "DELETE FROM bankAccount WHERE client_id = ?";
+			
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, clientID);
+			
+			pstmt.executeUpdate();
+			
 		}
 	}
 	
@@ -133,24 +158,27 @@ public class BankAccountDAO {
 		}
 	}
 
-	public List<BankAccount> getAllAccountsByClientID(int clientID) throws SQLException {
+	public List<BankAccount> getAllAccountsByClientID(int clientID, int greaterThan, int lessThan) throws SQLException {
 		List<BankAccount> accounts = new ArrayList<>();
 		
-		try(Connection con = JDBCUtility.getConnection()) {
-			String sql = "SELECT * FROM bankAccount WHERE client_id = ?";
+		try (Connection con = JDBCUtility.getConnection()) {
+			String sql = "SELECT * FROM bankAccount WHERE client_id = ? AND balance >= ? AND balance <= ?";
+			
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, clientID);
+			pstmt.setInt(2, greaterThan);
+			pstmt.setInt(3, lessThan);
 			
 			ResultSet rs = pstmt.executeQuery();
 			
-			while(rs.next()) {
+			while (rs.next()) {
 				int id = rs.getInt("account_id");
-				String type = rs.getString("account_type");
-				double balance = rs.getDouble("account_balance");
+				String accountType = rs.getString("account_type");
+				int balance = rs.getInt("balance");
 				
-				BankAccount a = new BankAccount(id, type, balance);
+				BankAccount b = new BankAccount(id, accountType, balance, clientID);
 				
-				accounts.add(a);
+				accounts.add(b);
 			}
 		}
 		

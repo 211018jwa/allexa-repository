@@ -8,11 +8,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.revature.controller.BankAccountController;
 import com.revature.dto.AddClientDTO;
 import com.revature.model.Client;
 import com.revature.util.JDBCUtility;
 
 public class ClientDAO {
+	private Logger logger = LoggerFactory.getLogger(ClientDAO.class);
+	
 	public Client addClient(AddClientDTO client) throws SQLException {
 		try(Connection con = JDBCUtility.getConnection()){
 			
@@ -62,6 +68,8 @@ public class ClientDAO {
 	}
 	
 	public Client getClientByID(int id) throws SQLException {
+		logger.info("ClientDao layer: client id {}", id);
+		
 		try(Connection con = JDBCUtility.getConnection()){
 			String sql = "SELECT * FROM clients WHERE client_id = ?";
 			
@@ -82,12 +90,12 @@ public class ClientDAO {
 	}
 	
 	public Client updateClient(int clientID, AddClientDTO account) throws SQLException {
-		try(Connection con = JDBCUtility.getConnection()) {
-			String sql = "Update clients "
-					+ "SET client_first_name = ?, "
-					+ "		client_last_name = ?, "
+		try (Connection con = JDBCUtility.getConnection()) {
+			String sql = "UPDATE clients "
+					+ "SET client_first_name = ?,"
+					+ "		client_last_name = ?"
 					+ "WHERE "
-					+ "client_id = ?; ";
+					+ "client_id = ?;";
 			
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, account.getClientFirstName());

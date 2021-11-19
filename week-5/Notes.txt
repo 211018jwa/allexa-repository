@@ -1,0 +1,51 @@
+Behavior Driven Development (BDD)
+	- We take English-like syntax (Gherkin) -> convertt into template code for tests -> implement tests
+	-> implement the actual application logic -> finish feature
+
+	BDD is an approach to developing software where we utilize 
+		"ubiquitous" language to bridge the gap between
+		business and development teams
+	Developers will implement features according to the point of view
+		of non-technical stakeholders
+	BDD is a superset of TDD(tdd is part of bdd)
+		BDD takes this TDD concept further by more effectively 
+			encouraging communication between all parties
+			such that everyone has a strong unstanding of an
+			application's behavior
+
+Steps of Developing Features
+	1. the product owner and business analyst and stakeholders will 
+		document expected behaviors
+	2. Developers/testers write tests
+	3. Developers then write code to pass the test
+
+BDD Benifits
+	- Encourages documentation
+	- Emphasizes effective communication
+	- BDD allows us to generate tests cases very easily
+
+Impementing BDD
+	- integral part of agile
+	- Cucumber: BDD tool
+	1. write feature files in Gherkin that define scenarios and 
+		tests for system behaviors
+	2. "glue code"
+	3. tests are implemented in "glue code" file
+	4. Code is writen to pass tests
+	5. determine if feature is complete
+
+Gherkin
+	- business-readable, domain specific language
+	- generates "glue code"
+	- glue code is where we implement tests
+
+Scenarios
+	- contains steps equivalent to testing
+
+
+-> TDD (Test Driven Development
+	- Make Tests before writing code
+	- Establish tests based around requirements(user stories)
+		- write the application to pass those tests
+	-> if we pass all tests: requirements should therefore be met 
+		and the fetures complete
