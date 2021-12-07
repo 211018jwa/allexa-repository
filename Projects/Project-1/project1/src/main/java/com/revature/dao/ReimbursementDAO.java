@@ -1,8 +1,10 @@
 package com.revature.dao;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,36 +18,72 @@ public class ReimbursementDAO {
 	
 	private Logger logger = LoggerFactory.getLogger(ReimbursementDAO.class);
 
-	public List<Reimbursement> getAllReimbursements() {
+	public List<Reimbursement> getAllReimbursements() throws SQLException {
 		logger.info("getAllReimbursements in DAO layer invoked");
 		
 		try(Connection con = JDBCUtility.getConnection()) {
-			List<Reimbursement> assignments = new ArrayList<>();
+			List<Reimbursement> reimbursements = new ArrayList<>();
 			
-			String sql = "SELECT id, assignment_name, grade, grader_id, author_id FROM httpsession_demo.assignments";
+			String sql = "SELECT * FROM reimbursement_p1.reimbursements";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				int id = rs.getInt("id");
-				String assignmentName = rs.getString("assignment_name");
-				int grade = rs.getInt("grade");
-				int graderID = rs.getInt("grader_id");
-				int authorID = rs.getInt("author_id");
+				int reimbursementID = rs.getInt("id");
+				int amount = rs.getInt("amount");
+				String submittedTimeStamp = rs.getString("submitted_time_stamp");
+				String resolvedTimeStamp = rs.getString("resolved_time_stamp");
+				String status = rs.getString("status");
+				String type = rs.getString("type");
+				String description = rs.getString("description");
+				InputStream receipt = rs.getBinaryStream("receipt");
+				int managerID = rs.getInt("manager_id");
+				int employeeID = rs.getInt("employee_id");
 				
-				Reimbursement assignment = new Reimbursement(id, assignmentName, grade, graderID, authorID);
+				Reimbursement assignment = new Reimbursement(reimbursementID, amount, submittedTimeStamp, 
+						resolvedTimeStamp, status, type, description, receipt, managerID, employeeID);
 				
-				assignments.add(assignment);
+				reimbursements.add(assignment);
 			}
 			
-			return assignments;
+			return reimbursements;
 		}
 	}
 
-	public List<Reimbursement> getAllReimbursementssByEmployee(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Reimbursement> getAllReimbursementssByEmployee(int id) throws SQLException {
+		logger.info("getAllReimbursements in DAO layer invoked");
+		
+		try(Connection con = JDBCUtility.getConnection()) {
+			List<Reimbursement> reimbursements = new ArrayList<>();
+			
+			String sql = "SELECT * FROM reimbursement_p1.reimbursements WHERE id = ?";
+			
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int reimbursementID = rs.getInt("id");
+				int amount = rs.getInt("amount");
+				String submittedTimeStamp = rs.getString("submitted_time_stamp");
+				String resolvedTimeStamp = rs.getString("resolved_time_stamp");
+				String status = rs.getString("status");
+				String type = rs.getString("type");
+				String description = rs.getString("description");
+				InputStream receipt = rs.getBinaryStream("receipt");
+				int managerID = rs.getInt("manager_id");
+				int employeeID = rs.getInt("employee_id");
+				
+				Reimbursement reimbursement = new Reimbursement(reimbursementID, amount, submittedTimeStamp, 
+						resolvedTimeStamp, status, type, description, receipt, managerID, employeeID);
+				
+				reimbursements.add(reimbursement);
+			}
+			
+			return reimbursements;
+		}
 	}
 
 }

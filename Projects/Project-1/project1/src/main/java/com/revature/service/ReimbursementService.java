@@ -1,5 +1,6 @@
 package com.revature.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,7 +16,7 @@ public class ReimbursementService {
 	
 	private Logger logger = LoggerFactory.getLogger(ReimbursementService.class);
 
-	public List<Reimbursement> getReimbursements(User currentlyLoggedInUser) {
+	public List<Reimbursement> getReimbursements(User currentlyLoggedInUser) throws SQLException {
 		List<Reimbursement> reimbursements = null;
 		
 		if(currentlyLoggedInUser.getUserRole().equals("manager")) {

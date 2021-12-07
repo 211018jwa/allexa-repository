@@ -1,0 +1,24 @@
+<h1 id="main-heading">Welcome to {{ title }}</h1>
+
+<h2>This is a Password Generator App</h2>
+
+<label>Length of password generated:</label>
+<div>
+  <input type='number' (input)="OnDesiredPasswordLengthInputChange($event)">
+</div>
+<div>
+  {{ desiredPasswordLength }}
+</div>
+<div>
+  <button [disabled]="desiredPasswordLength <= 0" (click)=onButtonClick()>Generate!</button>
+</div>
+
+<h2>Generated Password: {{ generatedPassword }}</h2>
+
+<h2>Display Image based on link</h2>
+<div>
+  <input (input)="onImageChange($event)" type="text">
+</div>
+<div>
+  <img [src]= "imageLink">
+</div>

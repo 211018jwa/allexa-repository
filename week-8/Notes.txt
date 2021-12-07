@@ -1,0 +1,20 @@
+Component Lifecycle
+- angular application
+  - navigate through different pages
+  - pages: components needed at specific times but not always
+  - components are easily created and destroyed
+  - functions: lifecycle hooks
+    - invoked under certain conditions during the component lifecycle
+    - can be used to perform useful actions
+
+- constructor: instantiates and populates the initial properties
+  - typically through dependency injection in the case of angular
+  - only called once
+- ngOnChanges(): whenever the input properties of a component change
+  - this method is called
+  - can be called multiple times
+- ngOnInit(): called one time when component is first initialized
+  - called when component is already rendered to the DOM
+- ngDoCheck(): called after ngOnChanges() and ngOnInit()
+  - use for change detection
+- ngOnDestroy(): called before Angular destroys the component

@@ -24,6 +24,10 @@ public class ReimbursementController implements Controller {
 		this.reimbursementService = new ReimbursementService();
 	}
 	
+	private Handler addReimbursement = (ctx) -> {
+		
+	};
+	
 	private Handler getReimbursements = (ctx) -> {
 		User currentlyLoggedInUser = (User) ctx.req.getSession().getAttribute("currentuser");
 		this.authenService.authorizeEmployeeAndManager(currentlyLoggedInUser);
@@ -37,6 +41,7 @@ public class ReimbursementController implements Controller {
 
 	@Override
 	public void mapEndPoints(Javalin app) {
+		app.post("/reimbursement", addReimbursement);
 		app.get("/reimbursements", getReimbursements);
 		
 	}
