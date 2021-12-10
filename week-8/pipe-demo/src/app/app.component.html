@@ -1,0 +1,15 @@
+<input type="number" [(ngModel)]="myVar">
+<p>Output: {{ myVar | currency: 'JPY' }}</p>
+
+<h2>Unit Converter</h2>
+<label>Miles per hour</label>
+<div>
+  <input type="number" [(ngModel)]="milesPerHourInput">
+</div>
+<p>Output: {{milesPerHourInput}}  Kilimeters per hour</p>
+
+<label>Kilometers per hour</label>
+<div>
+  <input type="number" [(ngModel)]="kilometersPerHourInput">
+</div>
+<p>Output: {{kilometersPerHourInput}}  Miles per hour</p>

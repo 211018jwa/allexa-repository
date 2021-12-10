@@ -12,7 +12,6 @@ public class Reimbursement {
 	private String status;
 	private String type;
 	private String description;
-	private InputStream receipt;
 	private int managerID;
 	private int employeeID;
 	
@@ -21,7 +20,7 @@ public class Reimbursement {
 	}
 
 	public Reimbursement(int id, int amount, String submittedTimeStamp, String resolvedTimeStamp, String status,
-			String type, String description, InputStream receipt, int managerID, int employeeID) {
+			String type, String description, int managerID, int employeeID) {
 		super();
 		this.id = id;
 		this.amount = amount;
@@ -30,7 +29,6 @@ public class Reimbursement {
 		this.status = status;
 		this.type = type;
 		this.description = description;
-		this.receipt = receipt;
 		this.managerID = managerID;
 		this.employeeID = employeeID;
 	}
@@ -89,18 +87,6 @@ public class Reimbursement {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public InputStream getReceipt() {
-		return receipt;
-	}
-
-	public void setReceipt(InputStream receipt) {
-		this.receipt = receipt;
-	}
-
-	public int getManagerID() {
-		return managerID;
 	}
 
 	public void setManagerID(int managerID) {

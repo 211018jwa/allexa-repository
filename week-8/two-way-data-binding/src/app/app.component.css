@@ -1,0 +1,6 @@
+:host {
+    display: grid;
+    grid-template-areas: 
+        "welcome welcome"
+        "one-way two-way";
+}

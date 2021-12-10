@@ -1,0 +1,19 @@
+<input type="number" [(ngModel)]="number1">
+<input type="number" [(ngModel)]="number2">
+<button (click)="addNumbers()">Add Numbers</button>
+<p>Output: {{ result }}</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Entry #</th>
+            <th>Result</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let entry of history; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ entry }}</td>
+        </tr>
+    </tbody>
+</table>

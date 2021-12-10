@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.revature.controller.AuthenticationController;
 import com.revature.controller.Controller;
 import com.revature.controller.ExceptionMapper;
+import com.revature.controller.ReimbursementController;
 
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
@@ -15,7 +16,7 @@ public class Application {
 		Javalin app = Javalin.create((config) -> {
 			config.enableCorsForAllOrigins();
 			
-			//config.addStaticFiles("static", Location.CLASSPATH);
+			config.addStaticFiles("static", Location.CLASSPATH);
 		});
 		
 		Logger logger = LoggerFactory.getLogger(Application.class);
@@ -24,7 +25,7 @@ public class Application {
 			logger.info(ctx.method() + " request received to the " + ctx.path() + " endpoint");
 		});
 		
-		mapControllers(app, new AuthenticationController());
+		mapControllers(app, new AuthenticationController(), new ReimbursementController());
 		
 		ExceptionMapper mapper = new ExceptionMapper();
 		mapper.mapExceptions(app);
